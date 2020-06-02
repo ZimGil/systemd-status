@@ -4,7 +4,7 @@
 
 Get your current systemd service status
 
-## Installation:
+## Installation
 `npm install systemd-status`
 
 ## Usage

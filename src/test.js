@@ -30,8 +30,9 @@ describe('systemdStatus', () => {
     const results = systemdStatus(['systemd-sysctl.service', 'systemd-journal-flush.service']);
     const expectedNames = ['systemd-sysctl', 'systemd-journal-flush'];
     results.forEach((result, index) => {
+      const expectedName = expectedNames[index];
       expect(result.name).to.be.a('string');
-      expect(result.name).to.equal(expectedNames[index]);
+      expect(result.name).to.equal(expectedName);
       expect(result.timestamp).to.be.a('date');
       expect(result.isActive).to.be.a('boolean');
     });
