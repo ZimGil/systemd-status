@@ -1,6 +1,6 @@
 {
   "name": "systemd-status",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Get your current systemd services status",
   "repository": "github:ZimGil/systemd-status",
   "main": "dist/index.js",
@@ -25,5 +25,6 @@
     "chai": "^4.2.0",
     "mocha": "^7.2.0"
   },
-  "files": ["dist/*"]
+  "files": ["dist/*"],
+  "os": ["linux"]
 }
