@@ -1,4 +1,7 @@
 # systemd-status
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2bbd78b16de14b02ae775996de83a829)](https://app.codacy.com/manual/ZimGil/systemd-status?utm_source=github.com&utm_medium=referral&utm_content=ZimGil/systemd-status&utm_campaign=Badge_Grade_Settings)
+
 Get your current systemd service status
 
 ## Installation:
