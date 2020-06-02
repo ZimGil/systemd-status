@@ -36,4 +36,8 @@ describe('systemdStatus', () => {
       expect(result.isActive).to.be.a('boolean');
     });
   });
+
+  it('Should return an empty array in case input is an empty array', () => {
+    expect(systemdStatus([])).to.be.an('array').that.is.empty;
+  })
 });
