@@ -1,0 +1,24 @@
+{
+  "name": "systemd-status",
+  "version": "1.0.0",
+  "description": "Get your current systemd services status",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist --presets=@babel/preset-env --plugins=babel-plugin-add-module-exports",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "systemd"
+  ],
+  "author": "Gil Tizhon",
+  "license": "MIT",
+  "dependencies": {
+    "shelljs": "^0.8.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "babel-plugin-add-module-exports": "^1.0.2"
+  }
+}
