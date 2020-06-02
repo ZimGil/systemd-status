@@ -1,7 +1,8 @@
 {
   "name": "systemd-status",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Get your current systemd services status",
+  "repository": "github:ZimGil/systemd-status",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist --presets=@babel/preset-env --plugins=babel-plugin-add-module-exports",
@@ -10,6 +11,7 @@
   "keywords": [
     "systemd"
   ],
+  "bugs": "https://github.com/ZimGil/systemd-status/issues",
   "author": "Gil Tizhon",
   "license": "MIT",
   "dependencies": {
@@ -22,5 +24,6 @@
     "babel-plugin-add-module-exports": "^1.0.2",
     "chai": "^4.2.0",
     "mocha": "^7.2.0"
-  }
+  },
+  "files": ["dist/*"]
 }
