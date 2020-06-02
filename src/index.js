@@ -7,7 +7,7 @@ function systemdStatus(_services) {
   const services = typeof _services === 'string' ? [ _services ] : _services;
   const command = `systemctl show ${services.join(' ')} -p Id -p ActiveState -p StateChangeTimestamp`;
 
-  return shelljs.exec(command, { silent: true })
+  const currentStatus = shelljs.exec(command, { silent: true })
     .trim()
     .split('\n\n')
     .map((serviceData) => {
@@ -25,6 +25,8 @@ function systemdStatus(_services) {
         timestamp: new Date(timestamp)
       };
     });
+
+    return currentStatus.length === 1 ? currentStatus[0] : currentStatus;
 }
 
 export default systemdStatus;
