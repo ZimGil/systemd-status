@@ -5,7 +5,7 @@ const detailsRegex = /Id=(.+)\nActiveState=(.+)\nStateChangeTimestamp=(.+)/m;
 function systemdStatus(_services) {
   const isArray = Array.isArray(_services);
   if (!isArray && typeof _services !== 'string') { throw new Error('Input must be an Array or a String'); }
-  if (isArray && !_services.length) return [];
+  if (isArray && !_services.length) { return [] };
   const services = typeof _services === 'string' ? [ _services ] : _services;
   const command = `systemctl show ${services.join(' ')} -p Id -p ActiveState -p StateChangeTimestamp`;
 
