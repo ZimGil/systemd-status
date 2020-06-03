@@ -24,6 +24,7 @@ describe('systemdStatus', () => {
     expect(result.name).to.equal('systemd-sysctl');
     expect(result.timestamp).to.be.a('date');
     expect(result.isActive).to.be.a('boolean');
+    expect(result.state).to.be.a('string');
   });
 
   it('Should return corrent structure when input contains only known services', () => {
@@ -35,6 +36,7 @@ describe('systemdStatus', () => {
       expect(result.name).to.equal(expectedName);
       expect(result.timestamp).to.be.a('date');
       expect(result.isActive).to.be.a('boolean');
+      expect(result.state).to.be.a('string');
     });
   });
 
