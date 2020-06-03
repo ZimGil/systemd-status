@@ -36,6 +36,6 @@ const currentStatus = systemdStatus(['plexmediaserver', 'smbd']);
 //     name: 'smbd',
 //     isActive: true / false,
 //     timestamp: '2020-06-02T13:21:51.716Z'
-//   },
+//   }
 // ]
 ```
