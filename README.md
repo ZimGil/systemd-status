@@ -2,8 +2,8 @@
 Get your current systemd service status
 
 ## Installation
-`npm install systemd-status`
-> ***Note***: as `systemd` only available on `Linux`, it can only be installed on `Linux` machines.
+`npm install systemd-status`  
+> ***Note***: as `systemd` only available on `Linux`, it can only be installed on `Linux` machines.  
 > If still wish to install it (for development reasons) use `--force`
 
 ## Usage
