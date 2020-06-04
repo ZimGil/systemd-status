@@ -19,9 +19,9 @@ function systemdStatus(_services) {
     .trim()
     .split('\n\n')
     .map((serviceData) => {
-      let name, activeState, timestamp, state;
+      let name, activeState, state, timestamp;
       try {
-        [, name, activeState, timestamp, state] = serviceData.match(detailsRegex);
+        [, name, activeState, state, timestamp] = serviceData.match(detailsRegex);
       } catch (e) {
         throw new Error('Unknown service');
       }
