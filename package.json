@@ -1,6 +1,6 @@
 {
   "name": "systemd-status",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Get your current systemd services status",
   "repository": "github:ZimGil/systemd-status",
   "main": "dist/index.js",
