@@ -6,7 +6,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist --presets=@babel/preset-env --plugins=babel-plugin-add-module-exports",
-    "test": "mocha dist/test.js"
+    "test": "mocha dist/test.js",
+    "prepare": "npm run build"
   },
   "keywords": [
     "systemd"
