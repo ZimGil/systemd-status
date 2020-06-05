@@ -2,7 +2,7 @@ import shelljs from 'shelljs';
 
 const detailsRegex = /Id=(.+)\nActiveState=(.+)\nSubState=(.+)\nStateChangeTimestamp=(.+)/m;
 
-function systemdStatus(_services) {
+function systemdStatus(_services, _execFn) {
   const isArray = Array.isArray(_services);
   if (!isArray && typeof _services !== 'string') { throw new Error('Input must be an Array or a String'); }
   if (isArray && !_services.length) { return []; }
@@ -15,7 +15,8 @@ function systemdStatus(_services) {
     'StateChangeTimestamp'
   ].join(' -p ');
 
-  const currentStatus = shelljs.exec(command, { silent: true })
+  const execFn = typeof _execFn === 'function' ? _execFn : shelljs.exec;
+  const currentStatus = execFn(command, { silent: true })
     .trim()
     .split('\n\n')
     .map((serviceData) => {
