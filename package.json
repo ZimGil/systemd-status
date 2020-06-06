@@ -1,13 +1,13 @@
 {
   "name": "systemd-status",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Get your current systemd services status",
   "repository": "github:ZimGil/systemd-status",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist --presets=@babel/preset-env --plugins=babel-plugin-add-module-exports",
     "test": "mocha dist/test.js",
-    "prepare": "npm run build"
+    "prepare": "npm run build && npm run test"
   },
   "keywords": [
     "systemd"
