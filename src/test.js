@@ -1,7 +1,22 @@
 import chai from 'chai';
 import systemdStatus from './index';
+import sliceLast from './slice-last';
 
 const expect = chai.expect;
+
+describe('sliceLast', () => {
+  it('Should remove that last part of a string based on a given seperator', () => {
+    const input = 'Remove last word';
+    const expected = 'Remove last';
+    expect(sliceLast(input)).to.be.equal(expected);
+  });
+
+  it('Should not remove a single word', () => {
+    const input = 'Leave';
+    const expected = 'Leave';
+    expect(sliceLast(input)).to.be.equal(expected);
+  });
+});
 
 describe('systemdStatus', () => {
   it('Should throw an error if the input is not an array or a string', () => {

@@ -1,4 +1,5 @@
 import shelljs from 'shelljs';
+import sliceLast from './slice-last';
 
 const detailsRegex = /Id=(.+)\nActiveState=(.+)\nSubState=(.+)\nStateChangeTimestamp=(.+)/m;
 
@@ -26,8 +27,8 @@ function systemdStatus(_services, _execFn) {
       } catch (e) {
         throw new Error('Unknown service');
       }
-      name = name.split('.').slice(0, -1).join('.');
-      timestamp = timestamp.split(' ').slice(0, -1).join(' ');
+      name = sliceLast(name, '.');
+      timestamp = sliceLast(timestamp, ' ');
       return {
         name,
         state,
