@@ -42,8 +42,17 @@ describe('systemdStatus', () => {
     expect(result.state).to.be.a('string');
   });
 
-  it('Should return corrent structure when input contains only known services', () => {
-    const results = systemdStatus(['plexmediaserver.service', 'smbd.service'], shelljsExecMockMulti);
+  it('Should return corrent structure when input is a known service but missing timestamp (disabled service)', () => {
+    const result = systemdStatus('plexmediaserver.service', shelljsExecMockSingleNoTimeStamp);
+    expect(result.name).to.be.a('string');
+    expect(result.name).to.equal('plexmediaserver');
+    expect(result.timestamp).to.be.a('date');
+    expect(result.isActive).to.be.a('boolean');
+    expect(result.state).to.be.a('string');
+  });
+
+  it('Should return corrent structure when input contains only known services but missing timestamp (disabled service)', () => {
+    const results = systemdStatus(['plexmediaserver.service', 'smbd.service'], shelljsExecMockMultiNoTimeStamp);
     const expectedNames = ['plexmediaserver', 'smbd'];
     results.forEach((result, index) => {
       const expectedName = expectedNames[index];
@@ -69,6 +78,14 @@ function shelljsExecMockSingle() {
   ].join('\n');
 }
 
+function shelljsExecMockSingleNoTimeStamp() {
+  return [
+    'Id=plexmediaserver.service',
+    'ActiveState=inactive',
+    'SubState=dead',
+    'StateChangeTimestamp='
+  ].join('\n');
+}
 
 function shelljsExecMockMulti() {
   return [
@@ -76,6 +93,20 @@ function shelljsExecMockMulti() {
     'ActiveState=active',
     'SubState=running',
     'StateChangeTimestamp=Thu 2020-06-04 01:35:33 IDT',
+    '',
+    'Id=smbd.service',
+    'ActiveState=active',
+    'SubState=running',
+    'StateChangeTimestamp=Mon 2020-06-01 11:39:01 IDT'
+  ].join('\n');
+}
+
+function shelljsExecMockMultiNoTimeStamp() {
+  return [
+    'Id=plexmediaserver.service',
+    'ActiveState=inactive',
+    'SubState=dead',
+    'StateChangeTimestamp=',
     '',
     'Id=smbd.service',
     'ActiveState=active',
