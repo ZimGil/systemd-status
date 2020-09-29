@@ -40,6 +40,7 @@ describe('systemdStatus', () => {
     expect(result.timestamp).to.be.a('date');
     expect(result.isActive).to.be.a('boolean');
     expect(result.state).to.be.a('string');
+    expect(result.isEnabled).to.be.a('boolean');
   });
 
   it('Should return corrent structure when input is a known service but missing timestamp (disabled service)', () => {
@@ -49,6 +50,21 @@ describe('systemdStatus', () => {
     expect(result.timestamp).to.be.a('date');
     expect(result.isActive).to.be.a('boolean');
     expect(result.state).to.be.a('string');
+    expect(result.isEnabled).to.be.a('boolean');
+  });
+
+  it('Should return corrent structure when input contains only known services', () => {
+    const results = systemdStatus(['plexmediaserver.service', 'smbd.service'], shelljsExecMockMulti);
+    const expectedNames = ['plexmediaserver', 'smbd'];
+    results.forEach((result, index) => {
+      const expectedName = expectedNames[index];
+      expect(result.name).to.be.a('string');
+      expect(result.name).to.equal(expectedName);
+      expect(result.timestamp).to.be.a('date');
+      expect(result.isActive).to.be.a('boolean');
+      expect(result.state).to.be.a('string');
+      expect(result.isEnabled).to.be.a('boolean');
+    });
   });
 
   it('Should return corrent structure when input contains only known services but missing timestamp (disabled service)', () => {
@@ -61,6 +77,7 @@ describe('systemdStatus', () => {
       expect(result.timestamp).to.be.a('date');
       expect(result.isActive).to.be.a('boolean');
       expect(result.state).to.be.a('string');
+      expect(result.isEnabled).to.be.a('boolean');
     });
   });
 
@@ -74,6 +91,7 @@ function shelljsExecMockSingle() {
     'Id=plexmediaserver.service',
     'ActiveState=active',
     'SubState=running',
+    'UnitFileState=enabled',
     'StateChangeTimestamp=Thu 2020-06-04 01:35:33 IDT'
   ].join('\n');
 }
@@ -83,6 +101,7 @@ function shelljsExecMockSingleNoTimeStamp() {
     'Id=plexmediaserver.service',
     'ActiveState=inactive',
     'SubState=dead',
+    'UnitFileState=enabled',
     'StateChangeTimestamp='
   ].join('\n');
 }
@@ -92,11 +111,13 @@ function shelljsExecMockMulti() {
     'Id=plexmediaserver.service',
     'ActiveState=active',
     'SubState=running',
+    'UnitFileState=enabled',
     'StateChangeTimestamp=Thu 2020-06-04 01:35:33 IDT',
     '',
     'Id=smbd.service',
     'ActiveState=active',
     'SubState=running',
+    'UnitFileState=enabled',
     'StateChangeTimestamp=Mon 2020-06-01 11:39:01 IDT'
   ].join('\n');
 }
@@ -106,11 +127,13 @@ function shelljsExecMockMultiNoTimeStamp() {
     'Id=plexmediaserver.service',
     'ActiveState=inactive',
     'SubState=dead',
+    'UnitFileState=enabled',
     'StateChangeTimestamp=',
     '',
     'Id=smbd.service',
     'ActiveState=active',
     'SubState=running',
+    'UnitFileState=enabled',
     'StateChangeTimestamp=Mon 2020-06-01 11:39:01 IDT'
   ].join('\n');
 }
