@@ -47,7 +47,7 @@ describe('systemdStatus', () => {
     const result = systemdStatus('plexmediaserver.service', shelljsExecMockSingleNoTimeStamp);
     expect(result.name).to.be.a('string');
     expect(result.name).to.equal('plexmediaserver');
-    expect(result.timestamp).to.be.a('date');
+    expect(result.timestamp).to.be.null;
     expect(result.isActive).to.be.a('boolean');
     expect(result.state).to.be.a('string');
     expect(result.isEnabled).to.be.a('boolean');
@@ -74,10 +74,14 @@ describe('systemdStatus', () => {
       const expectedName = expectedNames[index];
       expect(result.name).to.be.a('string');
       expect(result.name).to.equal(expectedName);
-      expect(result.timestamp).to.be.a('date');
       expect(result.isActive).to.be.a('boolean');
       expect(result.state).to.be.a('string');
       expect(result.isEnabled).to.be.a('boolean');
+      if (result.isEnabled) {
+        expect(result.timestamp).to.be.a('date');
+      } else {
+        expect(result.timestamp).to.be.null;
+      }
     });
   });
 
@@ -101,7 +105,7 @@ function shelljsExecMockSingleNoTimeStamp() {
     'Id=plexmediaserver.service',
     'ActiveState=inactive',
     'SubState=dead',
-    'UnitFileState=enabled',
+    'UnitFileState=disabled',
     'StateChangeTimestamp='
   ].join('\n');
 }
@@ -127,7 +131,7 @@ function shelljsExecMockMultiNoTimeStamp() {
     'Id=plexmediaserver.service',
     'ActiveState=inactive',
     'SubState=dead',
-    'UnitFileState=enabled',
+    'UnitFileState=disabled',
     'StateChangeTimestamp=',
     '',
     'Id=smbd.service',
