@@ -7,7 +7,7 @@ function systemdStatus(_services, _execFn) {
   const isArray = Array.isArray(_services);
   if (!isArray && typeof _services !== 'string') { throw new Error('Input must be an Array or a String'); }
   if (isArray && !_services.length) { return []; }
-  const services = typeof _services === 'string' ? [ _services ] : _services;
+  const services = typeof _services === 'string' ? [_services] : _services;
   const command = [
     `systemctl show ${services.join(' ')}`,
     'Id',
@@ -26,17 +26,17 @@ function systemdStatus(_services, _execFn) {
       if (!properties) { throw new Error('Unknown service'); }
       let [, name, activeState, state, unitFileState, timestamp] = properties;
       name = sliceLast(name, '.');
-      timestamp = timestamp && sliceLast(timestamp, ' ');
+      timestamp = timestamp ? new Date(sliceLast(timestamp, ' ')) : null;
       return {
         name,
         state,
+        timestamp,
         isActive: activeState === 'active',
-        timestamp: new Date(timestamp),
         isEnabled: unitFileState === 'enabled'
       };
     });
 
-    return currentStatus.length === 1 ? currentStatus[0] : currentStatus;
+  return currentStatus.length === 1 ? currentStatus[0] : currentStatus;
 }
 
 export default systemdStatus;
