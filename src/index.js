@@ -1,7 +1,7 @@
 import shelljs from 'shelljs';
 import sliceLast from './slice-last';
 
-const detailsRegex = /Id=(.+)\nActiveState=(.+)\nSubState=(.+)\nStateChangeTimestamp=(.+)?/m;
+const detailsRegex = /Id=(.+)\nActiveState=(.+)\nSubState=(.+)\nUnitFileState=(.+)\nStateChangeTimestamp=(.+)?/m;
 
 function systemdStatus(_services, _execFn) {
   const isArray = Array.isArray(_services);
@@ -13,6 +13,7 @@ function systemdStatus(_services, _execFn) {
     'Id',
     'ActiveState',
     'SubState',
+    'UnitFileState',
     'StateChangeTimestamp'
   ].join(' -p ');
 
@@ -21,9 +22,9 @@ function systemdStatus(_services, _execFn) {
     .trim()
     .split('\n\n')
     .map((serviceData) => {
-      let name, activeState, state, timestamp;
+      let name, activeState, state, unitFileState, timestamp;
       try {
-        [, name, activeState, state, timestamp] = serviceData.match(detailsRegex);
+        [, name, activeState, state, unitFileState, timestamp] = serviceData.match(detailsRegex);
       } catch (e) {
         throw new Error('Unknown service');
       }
@@ -33,7 +34,8 @@ function systemdStatus(_services, _execFn) {
         name,
         state,
         isActive: activeState === 'active',
-        timestamp: new Date(timestamp)
+        timestamp: new Date(timestamp),
+        isEnabled: unitFileState === 'enabled'
       };
     });
 
