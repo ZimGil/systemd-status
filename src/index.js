@@ -22,12 +22,9 @@ function systemdStatus(_services, _execFn) {
     .trim()
     .split('\n\n')
     .map((serviceData) => {
-      let name, activeState, state, unitFileState, timestamp;
-      try {
-        [, name, activeState, state, unitFileState, timestamp] = serviceData.match(detailsRegex);
-      } catch (e) {
-        throw new Error('Unknown service');
-      }
+      const properties = serviceData.match(detailsRegex);
+      if (!properties) { throw new Error('Unknown service'); }
+      let [, name, activeState, state, unitFileState, timestamp] = properties;
       name = sliceLast(name, '.');
       timestamp = timestamp && sliceLast(timestamp, ' ');
       return {
