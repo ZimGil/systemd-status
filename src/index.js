@@ -32,7 +32,7 @@ function systemdStatus(_services, _execFn) {
         state,
         timestamp,
         isActive: activeState === 'active',
-        isEnabled: unitFileState === 'enabled'
+        isDisabled: unitFileState === 'disabled'
       };
     });
 
