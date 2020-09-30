@@ -19,7 +19,8 @@ const plexStatus = systemdStatus('plexmediaserver');
 //   name: 'plexmediaserver',
 //   isActive: true,
 //   state: 'running',
-//   timestamp: '2020-06-02T13:21:51.716Z'
+//   timestamp: '2020-06-02T13:21:51.716Z',
+//   isDisabled: false
 // }
 ```
 
@@ -28,19 +29,28 @@ const plexStatus = systemdStatus('plexmediaserver');
 ```JavaScript
 const systemdStatus = require('systemd-status');
 
-const currentStatus = systemdStatus(['plexmediaserver', 'smbd']);
+const currentStatus = systemdStatus(['plexmediaserver', 'smbd', 'pihole-FTL']);
 // [
 //   {
 //     name: 'plexmediaserver',
 //     isActive: true,
 //     state: 'running',
-//     timestamp: '2020-06-02T13:21:51.716Z'
+//     timestamp: '2020-06-02T13:21:51.716Z',
+//     isDisabled: false
 //   },
 //   {
 //     name: 'smbd',
 //     isActive: false,
 //     state: 'dead',
-//     timestamp: '2020-06-02T13:21:51.716Z'
+//     timestamp: null,
+//     isDisabled: true
+//   }
+//   {
+//     name: 'pihole-FTL',
+//     isActive: true,
+//     state: 'exited',
+//     timestamp: '2020-06-02T13:21:51.716Z',
+//     isDisabled: false
 //   }
 // ]
 ```
