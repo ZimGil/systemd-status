@@ -40,7 +40,7 @@ describe('systemdStatus', () => {
     expect(result.timestamp).to.be.a('date');
     expect(result.isActive).to.be.a('boolean');
     expect(result.state).to.be.a('string');
-    expect(result.isEnabled).to.be.a('boolean');
+    expect(result.isDisabled).to.be.a('boolean');
   });
 
   it('Should return corrent structure when input is a known service but missing timestamp (disabled service)', () => {
@@ -50,7 +50,7 @@ describe('systemdStatus', () => {
     expect(result.timestamp).to.be.null;
     expect(result.isActive).to.be.a('boolean');
     expect(result.state).to.be.a('string');
-    expect(result.isEnabled).to.be.a('boolean');
+    expect(result.isDisabled).to.be.a('boolean');
   });
 
   it('Should return corrent structure when input contains only known services', () => {
@@ -63,7 +63,7 @@ describe('systemdStatus', () => {
       expect(result.timestamp).to.be.a('date');
       expect(result.isActive).to.be.a('boolean');
       expect(result.state).to.be.a('string');
-      expect(result.isEnabled).to.be.a('boolean');
+      expect(result.isDisabled).to.be.a('boolean');
     });
   });
 
@@ -76,11 +76,11 @@ describe('systemdStatus', () => {
       expect(result.name).to.equal(expectedName);
       expect(result.isActive).to.be.a('boolean');
       expect(result.state).to.be.a('string');
-      expect(result.isEnabled).to.be.a('boolean');
-      if (result.isEnabled) {
-        expect(result.timestamp).to.be.a('date');
-      } else {
+      expect(result.isDisabled).to.be.a('boolean');
+      if (result.isDisabled) {
         expect(result.timestamp).to.be.null;
+      } else {
+        expect(result.timestamp).to.be.a('date');
       }
     });
   });
